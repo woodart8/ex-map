@@ -9,7 +9,7 @@ const Header=styled.div`
 `;
 
 const Logo=styled.a`
-  fontFamily: 'KoHo';
+  font-family: 'KoHo';
   font-weight: 700;
   font-size: 35px;
   text-align: center;
@@ -25,7 +25,7 @@ const NavUl=styled.ul`
 const NavA=styled.a`
   margin-inline: 40px;
 
-  fontFamily: 'Inter';
+  font-family: 'Inter';
   font-style: normal;
   font-size: 23px;
   font-weight: 400;
@@ -45,7 +45,7 @@ const LoginUl=styled.ul`
 
 const LoginA=styled.a`
   margin-inline: 5px;
-  fontFamily: 'Inter';
+  font-family: 'Inter';
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
@@ -70,13 +70,13 @@ function Nav(){
   </NavUl>
 }
 function Login(){
-  return <login>
+  return <div>
     <LoginUl>
       <li><LoginA href="/login">로그인</LoginA></li>
       <li>|</li>
       <li><LoginA href="/signup">회원가입</LoginA></li>
     </LoginUl>
-  </login>
+  </div>
 }
 
 function MainHeader() {

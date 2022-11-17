@@ -21,7 +21,7 @@ const Slide=styled.div`
 `;
 
 const BigText=styled.div`
-  fontFamily:'Inter';
+  font-family:'Inter';
   font-size: 50px;
   font-weight: 700;
   line-height: 61px;
@@ -31,7 +31,7 @@ const BigText=styled.div`
 `;
 
 const SmallText=styled.div`
-  fontFamily: 'Inter';
+  font-family: 'Inter';
   font-size: 40px;
   font-weight: 500;
   line-height: 48px;
@@ -88,11 +88,11 @@ function SlideImgText(props){
     "height":props.imgtextInfo.height,
 
     "fontFamily":"Inter",
-    "font-size": props.imgtextInfo.fsize,
-    "font-weight": props.imgtextInfo.weight,
-    "line-height": "97px",
+    "fontSize": props.imgtextInfo.fsize,
+    "fontWeight": props.imgtextInfo.weight,
+    "lineHeight": "97px",
     "color":props.imgtextInfo.color,
-    "text-align":props.imgtextInfo.align,
+    "textAlign":props.imgtextInfo.align,
     "whiteSpace":"pre-wrap"
   };
   if(props.imgtextInfo.id===0)
