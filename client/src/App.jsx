@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import MainPage from '../src/pages/MainPage'
 import MapPage from '../src/pages/MapPage'
 import LoginPage from '../src/pages/LoginPage'
 import SignupPage from '../src/pages/SignupPage'
@@ -7,6 +8,11 @@ function App() {
   
   return (
     <div className="App">
+      <div>
+        <Routes>
+          <Route path='/main' element={<MainPage />} />
+        </Routes>
+      </div>
       <div>
         <Routes>
           <Route path='/login' element={<LoginPage />} />
