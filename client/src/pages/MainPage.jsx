@@ -1,11 +1,11 @@
 import React from 'react'
 import GlobalStyle from '../components/GlobalStyle'
 import Main from '../components/Main'
-const MainPage = () => {
+const MainPage = ({...loginUserProps}) => {
     return (
         <div>
             <GlobalStyle />
-            <Main />
+            <Main {...loginUserProps} />
         </div>
     )
 }
