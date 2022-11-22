@@ -10,7 +10,7 @@ contract Exhibition is Ownable{
 	mapping(address => bool) public user;
 
 	event RefundedToOwner(address indexed _dest, uint256 _refundedBalance);
-	event Deposited(address indexed _depositor, uint256 _depositedValue);
+	event bookingCompleted(address indexed _depositor, uint256 _depositedValue);
 
 	constructor(address _creator, uint256 _minimum) payable{
 		_owner = _creator;
@@ -22,7 +22,7 @@ contract Exhibition is Ownable{
 		require(!user[msg.sender]);
 
 		user[msg.sender] = true;
-        emit Deposited(msg.sender, msg.value);
+        emit bookingCompleted(msg.sender, msg.value);
     }
 
 	//전시회 정산
