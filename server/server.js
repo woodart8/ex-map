@@ -7,6 +7,7 @@ const port = process.env.PORT || 5000
 const exhibitionRouter = require('./router/exhibition');
 const userRouter = require('./router/user')
 const docentRouter = require('./router/docent')
+const bookingRouter = require('./router/booking')
 
 app.use(express.json())
 app.use(cors())
@@ -22,3 +23,5 @@ app.use('/api/exhibition', exhibitionRouter)
 
 app.use('/api/user', userRouter)
 app.use('/api/docent', docentRouter)
+
+app.use('/booking', bookingRouter)
