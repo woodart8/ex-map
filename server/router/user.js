@@ -32,9 +32,37 @@ const userSignUp = async(req) => {
   }
 }
 
+const getQuestionsByUser = async(req) => {
+  const id = req.body.id
+
+  const query = `SELECT question_content, question_title FROM question WHERE question_writer = ?`
+
+  try {
+    const connection = await pool.getConnection(async conn => conn)
+		try{
+	    const [questionResult] = await connection.query(query, id)
+			connection.release()
+			return questionResult
+		} catch(err) {
+			console.log('Query error')
+      connection.release()
+      return false
+		}
+  } catch(err) {
+    console.log(err)
+    return { err: err, success: false }
+  }
+  
+}
+
 router.post('/signup', async (req, res) => {
   let signUpRes = await userSignUp(req)
   res.send(signUpRes)
+})
+
+router.post('/question', async (req, res) => {
+  let questionRes = await getQuestionsByUser(req)
+  res.send(questionRes)
 })
 
 module.exports = router
