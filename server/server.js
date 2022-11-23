@@ -8,6 +8,9 @@ const exhibitionRouter = require('./router/exhibition');
 const userRouter = require('./router/user')
 const docentRouter = require('./router/docent')
 const loginRouter = require('./router/login')
+const questionRouter = require('./router/question')
+const answerRouter = require('./router/answer')
+const qnaRouter = require('./router/qna')
 
 app.use(express.json())
 app.use(cors())
@@ -25,3 +28,8 @@ app.use('/api/user', userRouter)
 app.use('/api/docent', docentRouter)
 
 app.use('/api/login', loginRouter)
+
+app.use('/api/qna', qnaRouter)
+
+app.use('/api/question', questionRouter)
+app.use('/api/answer', answerRouter)
