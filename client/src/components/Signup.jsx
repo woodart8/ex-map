@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Axios from 'axios'
-import axios from 'axios';
+// import axios from 'axios';
 
 const SignupContainer = styled.div`
     width: 100vw;
@@ -390,7 +390,8 @@ function Signup() {
     const [fileState, setFileState] = useState('')
     // const [regSuccess, setRegSuccess] = useState(false)
     const navigate = useNavigate()
-    const signup = () => {
+
+    const userSignUp = () => {
         if(idReg === "" || usernameReg === "" || passwordReg === "" || confirmpwdReg === ""){
             window.alert("빈칸을 모두 채워주세요.");
             return;
@@ -400,18 +401,44 @@ function Signup() {
             return;
         }
         Axios.post(
-            'http://localhost:5173/signup', 
+            'http://localhost:5000/api/user/signup', 
             {
                 id: idReg,
                 username: usernameReg,
                 password: passwordReg,
             }).then((response) => {
+                // setRegSuccess(response.data.success)
+                if(response.data.success) {
+                    navigate('/login')
+                }
+        })
+    }
+
+    const docentSignUp = (e) => {
+        if(idReg === "" || usernameReg === "" || passwordReg === "" || confirmpwdReg === ""){
+            window.alert("빈칸을 모두 채워주세요.");
+            return;
+        }
+        if(passwordReg !== confirmpwdReg){
+            window.alert("비밀번호가 다릅니다.");
+            return;
+        }
+
+        let formData = new FormData();
+        formData.append('image', fileState)
+        formData.append('id', idReg)
+        formData.append('password', passwordReg)
+        formData.append('username', usernameReg)
+        
+        Axios.post(
+            'http://localhost:5000/api/docent/signup',
+            formData).then((response) => {
                 console.log(response)
                 // setRegSuccess(response.data.success)
                 if(response.data.success) {
                     navigate('/login')
                 }
-            })
+        })
     }
 
     const handleUploadButtonClick = e => {
@@ -596,7 +623,7 @@ function Signup() {
                     <button 
                         type="submit" 
                         className="signup-form__submit-button"
-                        onClick={signup}>
+                        onClick={userSignUp}>
                         Sign Up
                     </button>
                 </div>
@@ -612,14 +639,14 @@ function Signup() {
                             <input
                                 type="file" 
                                 id="file"
-                                accept="image/jpg, image/png, image/jpeg"
+                                accept="image/*"
                                 onChange={(e) => handleUploadButtonClick(e)}/>
                         </div>
                     </div>
                     <button 
                         type="submit" 
                         className="signup-form__submit-button"
-                        onClick={signup}>
+                        onClick={docentSignUp}>
                         Sign Up
                     </button>
                 </div>

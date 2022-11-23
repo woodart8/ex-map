@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Axios from 'axios'
 
 const LoginContainer = styled.div`
@@ -152,12 +153,13 @@ const FormContainer = styled.div`
     }
 `;
 
-function LoginForm() {
+function Login({ setLoginId, setLoginState, setLoginName }) {
     const [id, setId] = useState('')
-    // const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const [loginStatus, setLoginStatus] = useState('')
+    // const [loginStatus, setLoginStatus] = useState('')
+
+    const navigate = useNavigate()
 
     const login = () => {
         if(id === "" || password === ""){
@@ -166,15 +168,22 @@ function LoginForm() {
         }
 
         Axios.post(
-            'http://localhost:5173/login', 
+            'http://localhost:5000/api/login', 
             {
                 id: id,
                 password: password,
             }).then((response) => {
-                if (response.data.message) {
-                    setLoginStatus(response.data.message)
-                } else {
-                    setLoginStatus(response.data[0])
+                // if (response.data.message) {
+                //     setLoginStatus(response.data.message)
+                // } else {
+                //     setLoginStatus(response.data[0])
+                // }
+                console.log(response)
+                if(response.data.success) {
+                    setLoginId(response.data.loginId)
+                    setLoginState(response.data.loginState)
+                    setLoginName(response.data.loginName)
+                    navigate('/')
                 }
         })
     }
@@ -221,4 +230,4 @@ function LoginForm() {
     )
 }
 
-export default LoginForm
+export default Login
