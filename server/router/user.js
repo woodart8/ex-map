@@ -55,6 +55,29 @@ const getQuestionsByUser = async(req) => {
   
 }
 
+const getReviewsByUser = async(req) => {
+  const id = req.body.id
+
+  const query = `SELECT rev_content, rev_title FROM review WHERE rev_writer = ?`
+
+  try {
+    const connection = await pool.getConnection(async conn => conn)
+		try{
+	    const [reviewResult] = await connection.query(query, id)
+			connection.release()
+			return reviewResult
+		} catch(err) {
+			console.log('Query error')
+      connection.release()
+      return false
+		}
+  } catch(err) {
+    console.log(err)
+    return { err: err, success: false }
+  }
+  
+}
+
 router.post('/signup', async (req, res) => {
   let signUpRes = await userSignUp(req)
   res.send(signUpRes)
@@ -63,6 +86,11 @@ router.post('/signup', async (req, res) => {
 router.post('/question', async (req, res) => {
   let questionRes = await getQuestionsByUser(req)
   res.send(questionRes)
+})
+
+router.post('/review', async (req, res) => {
+  let reviewRes = await getReviewsByUser(req)
+  res.send(reviewRes)
 })
 
 module.exports = router
