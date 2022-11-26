@@ -43,7 +43,6 @@ function Map() {
 
   Axios.get('http://localhost:5000/api/exhibition')
   .then((response) => {
-    console.log(response.data)
     makeMarkers(response.data)
   })
 
@@ -76,28 +75,17 @@ function Map() {
       let temp_id = 'id' + i
       mappingList[temp_id] = object
 
-      kakao.maps.event.addListener(marker, 'click', function() {    
-        setExhiList([])    
+      kakao.maps.event.addListener(marker, 'click', function() {     
         let values = Object.values(mappingList)
-
+        let temp_arr = []
+  
         for(let j = 0; j < values.length; j++) {
-          if(values[j].marker === marker) {
-            // if(exhiList.length === 0) {
-            //   setExhiList(values[j].data)
-            //   console.log(exhiList)
-            // } else {
-            //   let temp_arr = new Array(exhiList)
-            //   temp_arr.push(values[j].data)
-            //   setExhiList(temp_arr)
-            //   console.log(exhiList)
-            // }
-            setExhiList(new Array(values[j].data))
-            console.log(exhiList)
+          if((values[j].marker.Rc.x === marker.Rc.x) && (values[j].marker.Rc.y === marker.Rc.y)) {
+            temp_arr.push(values[j].data)
           }
         }
-
+        setExhiList(temp_arr)
       })
-
     }
   }
   
