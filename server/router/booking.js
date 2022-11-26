@@ -15,10 +15,10 @@ const booking = async(req) => {
 	const sender = req.body.sender
 	const value = req.body.value
 
+	const exInstance = contract.initContract(exhibition.abi, exhibitionADDRESS)
+
 	let run = async () => {
 		// const account = await web3.eth.getAccounts()
-		const exInstance = contract.initContract(exhibition.abi, exhibitionADDRESS)
-	
 		try {
 			await exInstance.methods
 				.booking()
@@ -27,7 +27,7 @@ const booking = async(req) => {
 					value : value,
 					gas : 2000000,
 				})
-				.then(console.log("booking completed"))
+				.then(console.log/*("booking completed")*/)
 			return { success: true }
 		} catch (error){
 			console.log(error)
@@ -35,7 +35,16 @@ const booking = async(req) => {
 		}
 		// console.log("run() end")
 	}
+	let bookingCompletedEvent = async() => {
+		await exInstance.events
+			.bookingCompleted()
+			.once('data', async (event) => {
+				console.log(event)
+			})
+			.on('error', console.error)
+	}
 	run()
+	bookingCompletedEvent()
 }
 
 
