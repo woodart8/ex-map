@@ -74,7 +74,7 @@ function Nav(){
     <li><Link to="/exhibition" className="navigation__link">전시</Link></li>
     <li><Link to="/map" className="navigation__link">지도</Link></li>
     <li><Link to="/promotion" className="navigation__link">홍보</Link></li>
-    <li><Link to="/review" className="navigation__link">후기</Link></li>
+    <li><Link to="/docent" className="navigation__link">도슨트</Link></li>
     <li><Link to="/qna" className="navigation__link">Q&amp;A</Link></li>
   </NavUl>
 }
