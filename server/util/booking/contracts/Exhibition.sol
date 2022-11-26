@@ -19,7 +19,7 @@ contract Exhibition is Ownable{
 
 	function booking() external payable {
 		require(msg.value == _minimumBalance);
-		require(!user[msg.sender]);
+		// require(!user[msg.sender]);
 
 		user[msg.sender] = true;
         emit bookingCompleted(msg.sender, msg.value);
