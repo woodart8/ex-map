@@ -11,6 +11,8 @@ const loginRouter = require('./router/login')
 const questionRouter = require('./router/question')
 const answerRouter = require('./router/answer')
 const qnaRouter = require('./router/qna')
+const reviewRouter = require('./router/review')
+const visitRouter = require('./router/visit')
 
 app.use(express.json())
 app.use(cors())
@@ -33,3 +35,7 @@ app.use('/api/qna', qnaRouter)
 
 app.use('/api/question', questionRouter)
 app.use('/api/answer', answerRouter)
+
+app.use('/api/review', reviewRouter)
+
+app.use('/api/visit', visitRouter)

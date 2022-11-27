@@ -55,6 +55,67 @@ const getQuestionsByUser = async(req) => {
   
 }
 
+const getReviewsByUser = async(req) => {
+  const id = req.body.id
+
+  const query = `SELECT rev_content, rev_title FROM review WHERE rev_writer = ?`
+
+  try {
+    const connection = await pool.getConnection(async conn => conn)
+		try{
+	    const [reviewResult] = await connection.query(query, id)
+			connection.release()
+			return reviewResult
+		} catch(err) {
+			console.log('Query error')
+      connection.release()
+      return false
+		}
+  } catch(err) {
+    console.log(err)
+    return { err: err, success: false }
+  }
+  
+}
+
+const getExhibitionsByUser = async(req) => {
+  const id = req.body.id
+
+  const queryForVisit = `SELECT visit_ex FROM visit WHERE visit_user = ?`
+	const queryForExhibition = `SELECT ex_id, ex_img, ex_keyword FROM exhibition WHERE ex_id = ?`
+
+  try {
+    const connection = await pool.getConnection(async conn => conn)
+		try{
+	    const [visitResult] = await connection.query(queryForVisit, id)
+
+      // Data 형식 추후 확인
+			if(visitResult.length == 0) {
+				connection.release()
+				return { msg: 'There are no exhibitions visited by this user.' }
+			}
+
+			let exhibitionResult = []
+
+			for(let i = 0; i < visitResult.length; i++) {
+				const [result] = await connection.query(queryForExhibition, visitResult[i].ex_id)
+				exhibitionResult.push(result) 
+			}
+
+			connection.release()
+			return exhibitionResult
+		} catch(err) {
+			console.log('Query error')
+      connection.release()
+      return false
+		}
+  } catch(err) {
+    console.log(err)
+    return { err: err, success: false }
+  }
+  
+}
+
 router.post('/signup', async (req, res) => {
   let signUpRes = await userSignUp(req)
   res.send(signUpRes)
@@ -63,6 +124,16 @@ router.post('/signup', async (req, res) => {
 router.post('/question', async (req, res) => {
   let questionRes = await getQuestionsByUser(req)
   res.send(questionRes)
+})
+
+router.post('/review', async (req, res) => {
+  let reviewRes = await getReviewsByUser(req)
+  res.send(reviewRes)
+})
+
+router.post('/exhibition', async (req, res) => {
+  let exhibitionRes = await getExhibitionsByUser(req)
+  res.send(exhibitionRes)
 })
 
 module.exports = router
