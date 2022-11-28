@@ -8,15 +8,16 @@ const revUpload = async(req) => {
   const writer = req.body.writer
   const content = req.body.content
 	const star = req.body.star
+  const exId = req.body.exId
 
-  const query = `INSERT INTO review (rev_title, rev_writer, rev_content, rev_star) VALUES (?, ?, ?, ?)`
+  const query = `INSERT INTO review (rev_title, rev_writer, rev_content, rev_star, exId) VALUES (?, ?, ?, ?, ?)`
 
   try {
     const connection = await pool.getConnection(async conn => conn)
 
     try {
 
-      const result = await connection.query(query, [title, writer, content, star])
+      const result = await connection.query(query, [title, writer, content, star, exId])
       connection.release()
       return { success: true }
 
@@ -40,15 +41,16 @@ const revUploadWithImg = async(req) => {
   const content = req.body.content
 	const star = req.body.star
   const image = req.file.location
+  const exId = req.body.exId
 
-  const query = `INSERT INTO review (rev_title, rev_writer, rev_content, rev_star, rev_img) VALUES (?, ?, ?, ?, ?)`
+  const query = `INSERT INTO review (rev_title, rev_writer, rev_content, rev_star, rev_img, ex_id) VALUES (?, ?, ?, ?, ?, ?)`
 
   try {
     const connection = await pool.getConnection(async conn => conn)
 
     try {
 
-      const result = await connection.query(query, [title, writer, content, star, image])
+      const result = await connection.query(query, [title, writer, content, star, image, exId])
       connection.release()
       return { success: true }
 
