@@ -2,11 +2,11 @@ import React from 'react'
 import GlobalStyle from '../components/GlobalStyle';
 import Login from '../components/Login'
 
-const LoginPage = () => {
+const LoginPage = ({...hookProps}) => {
     return (
         <div>
             <GlobalStyle />
-            <Login />
+            <Login {...hookProps} />
         </div>
     )
 }

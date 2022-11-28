@@ -135,7 +135,7 @@ function Controller(props){
   </PrevNext>
 }
 
-function Main() {
+function Main({...loginUserProps}) {
 
   const imgInfo=[
     {id:0,src:first_main, filter:"brightness(100%)"},
@@ -165,7 +165,7 @@ function Main() {
 
   return (
     <MainContainer>
-      <MainHeader></MainHeader>
+      <MainHeader {...loginUserProps} ></MainHeader>
       <Slide>
         <SlideImg imgInfo={imgInfo[id]}></SlideImg>
         <SlideImgText imgtextInfo={imgtextInfo[id]}></SlideImgText>

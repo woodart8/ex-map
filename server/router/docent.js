@@ -1,29 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { pool } = require('../db')
-require('dotenv').config(); 
-const multer = require('multer');
-const AWS = require('aws-sdk');
-const multerS3 = require('multer-s3');
-
-const s3 = new AWS.S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
-})
-
-// single file upload
-const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: 'exmap-s3-bucket',
-    acl: 'public-read-write',
-    key: function (req, file, cb) {
-      cb(null, `${Date.now()}_${file.originalname}`);
-    },
-    limits: { fileSize: 5 * 1024 * 1024 },
-  }),
-});
+const upload = require('../modules/multer')
 
 const docentSignUp = async(req) => {
   const id = req.body.id
@@ -56,9 +34,37 @@ const docentSignUp = async(req) => {
   }
 }
 
+const getAnswersByDocent = async(req) => {
+  const id = req.body.id
+
+  const query = `SELECT answer_content, answer_title FROM answer WHERE answer_writer = ?`
+
+  try {
+    const connection = await pool.getConnection(async conn => conn)
+		try{
+	    const [answerResult] = await connection.query(query, id)
+			connection.release()
+			return answerResult
+		} catch(err) {
+			console.log('Query error')
+      connection.release()
+      return false
+		}
+  } catch(err) {
+    console.log(err)
+    return { err: err, success: false }
+  }
+  
+}
+
 router.post('/signup', upload.single('image'), async (req, res) => {
   let signUpRes = await docentSignUp(req)
   res.send(signUpRes)
+})
+
+router.post('/answer', async (req, res) => {
+  let answerRes = await getAnswersByDocent(req)
+  res.send(answerRes)
 })
 
 module.exports = router
