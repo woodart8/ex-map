@@ -33,7 +33,7 @@ app.use('/api/user', userRouter)
 app.use('/api/docent', docentRouter)
 
 app.use('/api/eth', ethRouter)
-app.use('/booking', bookingRouter)
+app.use('/api/booking', bookingRouter)
 
 app.use('/api/login', loginRouter)
 

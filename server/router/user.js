@@ -2,19 +2,24 @@ const express = require('express')
 const router = express.Router()
 const { pool } = require('../db')
 
+const Provider = require('../src/Provider')
+const provider = new Provider()
+const web3 = provider.web3
+
 const userSignUp = async(req) => {
   const id = req.body.id
   const username = req.body.username
   const password = req.body.password
 
-  const query = 'INSERT INTO user (user_id, user_pwd, user_name) VALUES (?, ?, ?)'
+  const query = 'INSERT INTO user (user_id, user_pwd, user_name, user_addr) VALUES (?, ?, ?, ?)'
 
   try {
     const connection = await pool.getConnection(async conn => conn)
 
     try {
 
-      const result = await connection.query(query, [id, password, username])
+      const newAccount = await web3.eth.personal.newAccount(password)
+      const result = await connection.query(query, [id, password, username, newAccount])
       connection.release()
       return { success: true }
 
