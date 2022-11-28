@@ -1,0 +1,27 @@
+{
+  "name": "ex-map-blockchain",
+  "version": "1.0.0",
+  "description": "### 시작 ```bash $ ganache-cli -m = ex_map         # 가상 이더리움 시작 ``` ```bash Ganache CLI v6.12.2 (ganache-core: 2.13.2)",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/capstone-ex-online/ex-map-blockchain.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/capstone-ex-online/ex-map-blockchain/issues"
+  },
+  "homepage": "https://github.com/capstone-ex-online/ex-map-blockchain#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.7.3",
+    "web3": "^1.8.1"
+  }
+}

@@ -7,6 +7,8 @@ const port = process.env.PORT || 5000
 const exhibitionRouter = require('./router/exhibition');
 const userRouter = require('./router/user')
 const docentRouter = require('./router/docent')
+const bookingRouter = require('./router/booking')
+const ethRouter = require('./router/ethereum')
 const loginRouter = require('./router/login')
 const questionRouter = require('./router/question')
 const answerRouter = require('./router/answer')
@@ -29,6 +31,9 @@ app.use('/api/exhibition', exhibitionRouter)
 
 app.use('/api/user', userRouter)
 app.use('/api/docent', docentRouter)
+
+app.use('/api/eth', ethRouter)
+app.use('/booking', bookingRouter)
 
 app.use('/api/login', loginRouter)
 
