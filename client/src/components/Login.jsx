@@ -153,11 +153,9 @@ const FormContainer = styled.div`
     }
 `;
 
-function Login({ setLoginId, setLoginState, setLoginName }) {
+function Login({ setLoginId, setLoginState, setLoginName, setLoginProfile }) {
     const [id, setId] = useState('')
     const [password, setPassword] = useState('')
-
-    // const [loginStatus, setLoginStatus] = useState('')
 
     const navigate = useNavigate()
 
@@ -173,16 +171,12 @@ function Login({ setLoginId, setLoginState, setLoginName }) {
                 id: id,
                 password: password,
             }).then((response) => {
-                // if (response.data.message) {
-                //     setLoginStatus(response.data.message)
-                // } else {
-                //     setLoginStatus(response.data[0])
-                // }
                 console.log(response)
                 if(response.data.success) {
                     setLoginId(response.data.loginId)
                     setLoginState(response.data.loginState)
                     setLoginName(response.data.loginName)
+                    setLoginProfile(response.data.loginProfile)
                     navigate('/')
                 }
         })
