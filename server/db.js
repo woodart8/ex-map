@@ -1,5 +1,8 @@
 const mysql = require('mysql2/promise')
-require('dotenv').config(); 
+delete process.env.USER
+require('dotenv').config() 
+
+console.log(process.env.DATABASE)
 
 const pool = mysql.createPool({
   host: process.env.HOST,

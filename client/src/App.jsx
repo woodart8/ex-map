@@ -6,6 +6,8 @@ import LoginPage from '../src/pages/LoginPage'
 import SignupPage from '../src/pages/SignupPage'
 import QnAView from '../src/pages/QnAView';
 import QnAPage from '../src/pages/QnAPage';
+import PromotionPage from './pages/PromotionPage'
+import PromotionEditorPage from './pages/PromotionEditorPage'
 
 function App() {
   const [loginId, setLoginId] = useState('')
@@ -32,10 +34,8 @@ function App() {
           <Route path='/login' element={<LoginPage {...hookProps} />} />
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/map' element={<MapPage {...loginUserProps} />} />
-        </Routes>
-      </div>
-      <div>
-        <Routes>
+          <Route path='/promotion' element={<PromotionPage {...loginUserProps} />} />
+          <Route path='/promotion/post' element={<PromotionEditorPage {...loginUserProps} />} />
           <Route path='/qnaView/:no' element={<QnAView />} />
           <Route path='/qna' element={<QnAPage />} />
         </Routes>
