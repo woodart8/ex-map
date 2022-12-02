@@ -14,7 +14,7 @@ function Pagination({ total, limit, page, setPage }) {
   const [currentPageArray, setCurrentPageArray] = useState([]);
   const [totalPageArray, setTotalPageArray] = useState([]);
   const totalPages = Math.ceil(total / limit);
-  const pageLimit = 5;
+  const pageLimit = 10;
 
   useEffect(() => {
     if (page % pageLimit === 1) {
