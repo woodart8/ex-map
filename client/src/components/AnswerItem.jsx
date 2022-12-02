@@ -71,13 +71,11 @@ const AnswerItemContainer = styled.div`
 
 function Item({item}){
     return (
-      <div>
-        <AnswerItemContainer>
-          <div className="qna-title">A. {item.title}</div>
-          <div className="qna-content">{item.content}</div>
-          <div className="qna-docentName">{item.docentName}</div>
-        </AnswerItemContainer>
-      </div>
+      <AnswerItemContainer>
+        <div className="qna-title">A. {item.title}</div>
+        <div className="qna-content">{item.content}</div>
+        <div className="qna-docentName">{item.docentName}</div>
+      </AnswerItemContainer>
     );
   }
   

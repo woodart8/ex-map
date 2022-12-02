@@ -4,8 +4,10 @@ import MainPage from '../src/pages/MainPage'
 import MapPage from '../src/pages/MapPage'
 import LoginPage from '../src/pages/LoginPage'
 import SignupPage from '../src/pages/SignupPage'
-import QnAView from '../src/pages/QnAView';
-import QnAPage from '../src/pages/QnAPage';
+import QnAView from '../src/pages/QnAView'
+import QnAPage from '../src/pages/QnAPage'
+import QuestionEditorPage from './pages/QuestionEditorPage'
+import AnswerEditorPage from './pages/AnswerEditorPage'
 import PromotionPage from './pages/PromotionPage'
 import PromotionEditorPage from './pages/PromotionEditorPage'
 
@@ -36,8 +38,10 @@ function App() {
           <Route path='/map' element={<MapPage {...loginUserProps} />} />
           <Route path='/promotion' element={<PromotionPage {...loginUserProps} />} />
           <Route path='/promotion/post' element={<PromotionEditorPage {...loginUserProps} />} />
-          <Route path='/qnaView/:no' element={<QnAView />} />
-          <Route path='/qna' element={<QnAPage />} />
+          <Route path='/qna' element={<QnAPage {...loginUserProps} />} />
+          <Route path='/question/post' element={<QuestionEditorPage {...loginUserProps} />} />
+          <Route path='/answer/post' element={<AnswerEditorPage {...loginUserProps} />} />
+          <Route path='/qna/:no' element={<QnAView {...loginUserProps} />} />
         </Routes>
       </div>
     </div>

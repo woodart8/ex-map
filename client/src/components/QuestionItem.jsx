@@ -101,7 +101,7 @@ const QuestionItemForm = styled.div`
 function Item({item}){
     return (
       <QuestionItemContainer>
-        <Link to={`/qnaView/${item.no}`}>
+        <Link to={`/qna/${item.no}`}>
           <QuestionItemForm>
             <div className="qna-title">Q. {item.title}</div>
             <div className="qna-content">{item.content}</div>

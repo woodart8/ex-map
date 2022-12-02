@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { questionList } from '../assets/QnAData';
 import Item from './QuestionItem'
 import styled from 'styled-components'
 import Pagination from "./Pagination";
 
-const QnAListDefaultBackground = styled.div`
+const QnAListContainer = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -12,7 +13,7 @@ const QnAListDefaultBackground = styled.div`
   overflow: auto;
 `;
 
-const QnAListContainer = styled.div`
+const QnAListForm = styled.div`
   position: absolute;
   height: 100vh;
   width: 900px;
@@ -49,30 +50,34 @@ const QnAListContainer = styled.div`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 20px;
   }
 `;
 
 
 function QnAList() {
   const [ dataList, setDataList ] = useState([]);
-  const [limit] = useState(2);
+  const [limit] = useState(10);
   const [page, setPage] = useState(1);
+  const navigate = useNavigate()
   const offset = (page - 1) * limit;
 
   useEffect(() => {
     setDataList(questionList);
   }, [ ])
 
+  const clickPostQuestion = () => {
+    navigate('/question/post')
+  }
+
   return (
-    <QnAListDefaultBackground>
-        <QnAListContainer>
+    <QnAListContainer>
+        <QnAListForm>
           {
             dataList.slice(offset, offset+limit).map((item) => 
                 <Item item = {item}/>
             )
           }
-          <button className='write-question-btn'>글쓰기</button>
+          <button className='write-question-btn' onClick={clickPostQuestion}>글쓰기</button>
           <div className='question-pagination'>
             <Pagination
               total={dataList.length}
@@ -81,8 +86,8 @@ function QnAList() {
               setPage={setPage}
             />
           </div>
-        </QnAListContainer>
-    </QnAListDefaultBackground>
+        </QnAListForm>
+    </QnAListContainer>
   );
 }
 
