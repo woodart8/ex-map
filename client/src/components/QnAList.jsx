@@ -78,7 +78,7 @@ const QnAListForm = styled.div`
 
 function QnAList() {
   const [qnaList, setQnAList] = useState([])
-  const [limit] = useState(3); //한 페이지에 질문 몇개씩 나오는지 설정
+  const [limit] = useState(3);  //한 페이지에 질문 몇개씩 나오는지
   const [page, setPage] = useState(1);
   const navigate = useNavigate()
   const offset = (page - 1) * limit;

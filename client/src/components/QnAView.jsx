@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Item from '../components/AnswerItem';
 import styled from 'styled-components'
-import MainHeader from '../components/MainHeader'
 import axios from 'axios';
+
 const QnAViewContainer = styled.div`
   position: absolute;
-  width: 100vw;
   height: 100vh;
+  width: 100vw;
+  overflow:auto;
   background-color: #EDEDED;
-  overflow: auto;
 
   .no-answer {
     position: relative;
@@ -254,16 +254,16 @@ const AnswerView = styled.div`
   }
 `;
 
-function QnAView() {
+function QnAView({...loginUserProps}) {
   const location = useLocation();
   const questionData = {
+    question_id: location.state.question_id,
     question_title: location.state.question_title,
     question_content: location.state.question_content,
     question_writer: location.state.question_writer
   }
   const { qid } = useParams();
   const [ answerList, setAnswerList ] = useState([]);
-
   axios.post('http://localhost:5000/api/qna/answer',
     {
       'qid': qid
@@ -280,7 +280,7 @@ function QnAView() {
   }
 
   const clickPostAnswer = () => {
-    navigate('/answer/post')
+    navigate('/answer/post', {state: questionData});
   }
 
   return (
@@ -291,7 +291,11 @@ function QnAView() {
             <QuestionView>
                   <div className="qna-title">Q. { questionData.question_title }</div>
                   <div className="qna-content">{ questionData.question_content }</div>
-                  <button className="qna-answer-btn" onClick={clickPostAnswer}>답변하기</button> 
+                  {
+                    loginUserProps.loginState == 'docent' ? (
+                      <button className="qna-answer-btn" onClick={clickPostAnswer}>답변하기</button>
+                    ) : <div/>
+                  }
                   <div className='qna-writer'>{ questionData.question_writer }</div>
             </QuestionView>
           ) : 
