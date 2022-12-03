@@ -13,7 +13,8 @@ const loadQnaList = async() => {
       const [questionRows] = await connection.query(queryForQuestion)
       for(let i = 0; i<questionRows.length; i++) {
         queryForAnswerCount = `SELECT COUNT(*) AS answerCnt FROM answer WHERE qid = ${questionRows[i].question_id}`
-        questionRows[i]['answer_count'] = queryForAnswerCount[0].answerCnt
+        const answer = await connection.query(queryForAnswerCount)
+        questionRows[i]['answer_count'] = answer[0][0].answerCnt
       }
       connection.release()
       return questionRows

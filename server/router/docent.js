@@ -67,7 +67,8 @@ const getInfoByDocent = async(req) => {
       const [infoRows] = await connection.query(queryForInfo)
       for(let i = 0; i<infoRows.length; i++) {
         queryForAnswerCount = `SELECT COUNT(*) AS answerCnt FROM answer WHERE answer_writer = ${infoRows[i].docent_id}`
-        infoRows[i]['answer_count'] = queryForAnswerCount[0].answerCnt
+        const answer = await connection.query(queryForAnswerCount)
+        infoRows[i]['answer_count'] = answer[0][0].answerCnt
       }
       connection.release()
       return infoRows
