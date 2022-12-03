@@ -15,7 +15,7 @@ const AnswerItemContainer = styled.div`
   border-radius: 10px;
   border: none;
 
-  .qna-title {
+  .answer-title {
     position: absolute;
     width: 830px;
     height: 50px;
@@ -33,7 +33,7 @@ const AnswerItemContainer = styled.div`
     color: #BA9F77;
   }
 
-  .qna-content {
+  .answer-content {
     position: absolute;
     width: 830px;
     height: 95px;
@@ -51,7 +51,7 @@ const AnswerItemContainer = styled.div`
     color: #000000;
   }
 
-  .qna-docentName {
+  .answer-writer {
     position: absolute;
     width: 370px;
     height: 33px;
@@ -72,9 +72,9 @@ const AnswerItemContainer = styled.div`
 function Item({item}){
     return (
       <AnswerItemContainer>
-        <div className="qna-title">A. {item.title}</div>
-        <div className="qna-content">{item.content}</div>
-        <div className="qna-docentName">{item.docentName}</div>
+        <div className="answer-title">A. {item.answer_title}</div>
+        <div className="answer-content">{item.answer_content}</div>
+        <div className="answer-writer">{item.answer_writer}</div>
       </AnswerItemContainer>
     );
   }

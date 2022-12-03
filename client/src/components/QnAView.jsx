@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import GlobalStyle from '../components/GlobalStyle';
-import { useParams, useNavigate } from "react-router-dom";
-import { getQnAByNo, getAnswerByNo } from '../assets/QnAData';
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Item from '../components/AnswerItem';
 import styled from 'styled-components'
 import MainHeader from '../components/MainHeader'
+import axios from 'axios';
 const QnAViewContainer = styled.div`
   position: absolute;
   width: 100vw;
@@ -137,7 +136,7 @@ const QuestionView = styled.div`
     color: #000000;
   }
 
-  .qna-exTitle {
+  .qna-writer {
     position: absolute;
     width: 370px;
     height: 33px;
@@ -255,19 +254,25 @@ const AnswerView = styled.div`
   }
 `;
 
-const QnAView = ({...loginUserProps}) => {
-
-  const [ data, setData ] = useState({});
-  const { no } = useParams();
+function QnAView() {
+  const location = useLocation();
+  const questionData = {
+    question_title: location.state.question_title,
+    question_content: location.state.question_content,
+    question_writer: location.state.question_writer
+  }
+  const { qid } = useParams();
   const [ answerList, setAnswerList ] = useState([]);
 
-  useEffect(() => {
-    setAnswerList(getAnswerByNo(no));
-  })
-
-  useEffect(() => {
-    setData(getQnAByNo(no));
-  }, [ ]);
+  axios.post('http://localhost:5000/api/qna/answer',
+    {
+      'qid': qid
+    }
+    ).then((response) => {
+      if(answerList.length == 0) {
+          setAnswerList(response.data);
+      }
+    })
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -279,38 +284,36 @@ const QnAView = ({...loginUserProps}) => {
   }
 
   return (
-    <div>
-      <GlobalStyle />
-      <MainHeader {...loginUserProps} />
-      <QnAViewContainer>
-        <QnAViewForm>
-          {
-            data ? (
-              <QuestionView>
-                    <div className="qna-title">Q. { data.title }</div>
-                    <div className="qna-content">{ data.content }</div>
-                    <button className="qna-answer-btn" onClick={clickPostAnswer}>답변하기</button> 
-                    <div className='qna-exTitle'>{ data.exTitle }</div>
-              </QuestionView>
-            ) : 
-            <div className="no-qna">해당 Q&A 게시글을 찾을 수 없습니다.</div>
-          }
-          {
-            answerList ? (
-              <AnswerView>
-                {
-                  answerList.map((item) => 
+    <QnAViewContainer>
+      <QnAViewForm>
+        {
+          questionData ? (
+            <QuestionView>
+                  <div className="qna-title">Q. { questionData.question_title }</div>
+                  <div className="qna-content">{ questionData.question_content }</div>
+                  <button className="qna-answer-btn" onClick={clickPostAnswer}>답변하기</button> 
+                  <div className='qna-writer'>{ questionData.question_writer }</div>
+            </QuestionView>
+          ) : 
+          <div className="no-qna">해당 Q&A 게시글을 찾을 수 없습니다.</div>
+        }
+        {
+          answerList ? (
+            <AnswerView>
+              {
+                answerList.map((item, idx) => 
+                  <div key={idx}>
                     <Item item = {item}/>
-                  )
-                }
-              </AnswerView>
-            ) : 
-            <div className="no-answer">해당 Q&A 게시글에 달린 답변이 없습니다.</div>
-          }
-          <button className="qna-view-go-list-btn" onClick={handleClick}>목록으로 돌아가기</button>
-        </QnAViewForm>
-      </QnAViewContainer>
-    </div>
+                  </div>
+                )
+              }
+            </AnswerView>
+          ) : 
+          <div className="no-answer">해당 Q&A 게시글에 달린 답변이 없습니다.</div>
+        }
+        <button className="qna-view-go-list-btn" onClick={handleClick}>목록으로 돌아가기</button>
+      </QnAViewForm>
+    </QnAViewContainer>
   )
 }
 

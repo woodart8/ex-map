@@ -22,7 +22,7 @@ const QuestionItemForm = styled.div`
   border-radius: 10px;
   border: none;
 
-  .qna-title {
+  .question-title {
     position: absolute;
     width: 830px;
     height: 50px;
@@ -42,7 +42,7 @@ const QuestionItemForm = styled.div`
     color: #000000;
   }
 
-  .qna-content {
+  .question-content {
     position: absolute;
     width: 830px;
     height: 95px;
@@ -64,7 +64,7 @@ const QuestionItemForm = styled.div`
     color: #000000;
   }
 
-  .qna-answerCount {
+  .question-answerCount {
     position: absolute;
     width: 163px;
     height: 33px;
@@ -80,7 +80,7 @@ const QuestionItemForm = styled.div`
     color: #BA9F77;
   }
 
-  .qna-exTitle {
+  .question-writer {
     position: absolute;
     width: 370px;
     height: 33px;
@@ -101,12 +101,18 @@ const QuestionItemForm = styled.div`
 function Item({item}){
     return (
       <QuestionItemContainer>
-        <Link to={`/qna/${item.no}`}>
+        <Link to={`/qna/${item.question_id}`} 
+          state={{
+            question_id: item.question_id,
+            question_title: item.question_title,
+            question_content: item.question_content,
+            question_writer: item.question_writer
+          }}>
           <QuestionItemForm>
-            <div className="qna-title">Q. {item.title}</div>
-            <div className="qna-content">{item.content}</div>
-            <div className="qna-answerCount">답변 수 : {item.answerCount}</div>
-            <div className="qna-exTitle">{item.exTitle}</div>
+            <div className="question-title">Q. {item.question_title}</div>
+            <div className="question-content">{item.question_content}</div>
+            <div className="question-answerCount">답변 수 : {item.answer_count}</div>
+            <div className="question-writer">{item.question_writer}</div>
           </QuestionItemForm>
         </Link>
       </QuestionItemContainer>

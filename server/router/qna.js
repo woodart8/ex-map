@@ -6,7 +6,7 @@ const loadQnaList = async() => {
   try {
     const connection = await pool.getConnection(async conn => conn)
 
-    const queryForQuestion = `SELECT question_content, question_id, question_title FROM question`
+    const queryForQuestion = `SELECT question_content, question_id, question_title, question_writer FROM question`
     let queryForAnswerCount = ``
 
     try {
@@ -32,7 +32,7 @@ const loadQnaList = async() => {
 const getAnswersByQid = async(req) => {
   const qid = req.body.qid
 
-  const query = `SELECT answer_content, answer_img, answer_title FROM answer WHERE qid = ?`
+  const query = `SELECT answer_content, answer_img, answer_title, answer_writer FROM answer WHERE qid = ?`
 
   try {
     const connection = await pool.getConnection(async conn => conn)
