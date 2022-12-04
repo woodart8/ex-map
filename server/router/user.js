@@ -94,8 +94,6 @@ const getExhibitionsByUser = async(req) => {
 		try{
 	    const [visitResult] = await connection.query(queryForVisit, id)
 
-      console.log(visitResult)
-      // Data 형식 추후 확인
 			if(visitResult.length == 0) {
 				connection.release()
 				return { msg: 'There are no exhibitions visited by this user.' }
@@ -108,7 +106,6 @@ const getExhibitionsByUser = async(req) => {
 				exhibitionResult.push(result) 
 			}
 
-      console.log(exhibitionResult)
 			connection.release()
 			return exhibitionResult
 		} catch(err) {
