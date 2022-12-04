@@ -7,15 +7,13 @@ import axios from 'axios';
 
 const QnAListContainer = styled.div`
   position: absolute;
-  width: 100vw;
-  height: 100vh;
-  background-color: #EDEDED;
-  overflow: auto;
+  height: 100%;
+  width: 100%;
 `;
 
 const QnAListForm = styled.div`
   position: absolute;
-  height: 100vh;
+  height: 100%;
   width: 900px;
   left: 50%;
   transform: translateX(-50%);
@@ -78,7 +76,7 @@ const QnAListForm = styled.div`
 
 function QnAList() {
   const [qnaList, setQnAList] = useState([])
-  const [limit] = useState(3);  //한 페이지에 질문 몇개씩 나오는지
+  const [limit] = useState(4);  //한 페이지에 질문 몇개씩 나오는지
   const [page, setPage] = useState(1);
   const navigate = useNavigate()
   const offset = (page - 1) * limit;

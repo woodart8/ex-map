@@ -6,10 +6,8 @@ import axios from 'axios';
 
 const QnAViewContainer = styled.div`
   position: absolute;
-  height: 100vh;
-  width: 100vw;
-  overflow:auto;
-  background-color: #EDEDED;
+  height: 100%;
+  width: 100%;
 
   .no-answer {
     position: relative;
@@ -57,7 +55,7 @@ const QnAViewContainer = styled.div`
 
 const QnAViewForm = styled.div`
   position: absolute;
-  height: 100vh;
+  height: 100%;
   width: 900px;
   left: 50%;
   transform: translateX(-50%);
@@ -264,6 +262,7 @@ function QnAView({...loginUserProps}) {
   }
   const { qid } = useParams();
   const [ answerList, setAnswerList ] = useState([]);
+
   axios.post('http://localhost:5000/api/qna/answer',
     {
       'qid': qid
@@ -291,9 +290,9 @@ function QnAView({...loginUserProps}) {
             <QuestionView>
                   <div className="qna-title">Q. { questionData.question_title }</div>
                   <div className="qna-content">{ questionData.question_content }</div>
-                  {
+                  { 
                     loginUserProps.loginState == 'docent' ? (
-                      <button className="qna-answer-btn" onClick={clickPostAnswer}>답변하기</button>
+                      <button className="qna-answer-btn" onClick={clickPostAnswer}>답변하기</button> 
                     ) : <div/>
                   }
                   <div className='qna-writer'>{ questionData.question_writer }</div>
@@ -302,7 +301,7 @@ function QnAView({...loginUserProps}) {
           <div className="no-qna">해당 Q&A 게시글을 찾을 수 없습니다.</div>
         }
         {
-          answerList ? (
+          answerList.length !== 0 ? (
             <AnswerView>
               {
                 answerList.map((item, idx) => 

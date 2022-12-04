@@ -425,7 +425,7 @@ function Signup() {
         }
 
         let formData = new FormData();
-        formData.append('image', fileState)
+        formData.append('authimage', fileState)
         formData.append('id', idReg)
         formData.append('password', passwordReg)
         formData.append('username', usernameReg)

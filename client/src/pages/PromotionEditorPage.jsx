@@ -8,7 +8,6 @@ const PromotionEditorPage = ({...loginUserProps}) => {
     editorState: 'promotion',
     userId: loginUserProps.loginId
   }
-
     return (
         <div>
             <GlobalStyle />

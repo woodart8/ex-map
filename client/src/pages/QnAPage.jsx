@@ -1,12 +1,12 @@
 import React from 'react';
-import GlobalStyle from '../components/GlobalStyle';
+import GrayBackground from '../components/GrayBackground';
 import QnAList from '../components/QnAList';
 import MainHeader from '../components/MainHeader'
 
 const QnAPage =  ({...loginUserProps}) => {
   return (
     <div>
-      <GlobalStyle />
+      <GrayBackground />
       <MainHeader {...loginUserProps} />
       <QnAList />
     </div>
