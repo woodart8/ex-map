@@ -10,6 +10,7 @@ import QuestionEditorPage from './pages/QuestionEditorPage'
 import AnswerEditorPage from './pages/AnswerEditorPage'
 import PromotionPage from './pages/PromotionPage'
 import PromotionEditorPage from './pages/PromotionEditorPage'
+import ExhibitionPage from './pages/ExhibitionPage'
 
 function App() {
   const [loginId, setLoginId] = useState('')
@@ -41,6 +42,7 @@ function App() {
           <Route path='/' element={<MainPage {...loginUserProps} />} />
           <Route path='/login' element={<LoginPage {...hookProps} />} />
           <Route path='/signup' element={<SignupPage />} />
+          <Route path='/exhibition' element={<ExhibitionPage {...loginUserProps} />} />
           <Route path='/map' element={<MapPage {...loginUserProps} />} />
           <Route path='/promotion' element={<PromotionPage {...loginUserProps} />} />
           <Route path='/promotion/post' element={<PromotionEditorPage {...loginUserProps} />} />

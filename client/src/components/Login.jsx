@@ -171,7 +171,6 @@ function Login({ setLoginId, setLoginState, setLoginName, setLoginProfile, setLo
                 id: id,
                 password: password,
             }).then((response) => {
-                console.log(response)
                 if(response.data.success) {
                     setLoginId(response.data.loginId)
                     setLoginState(response.data.loginState)
