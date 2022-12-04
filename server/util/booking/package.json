@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/capstone-ex-online/ex-map-blockchain#readme",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.7.3",
+    "@openzeppelin/contracts": "^4.8.0",
     "web3": "^1.8.1"
   }
 }

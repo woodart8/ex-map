@@ -94,7 +94,6 @@ const getExhibitionsByUser = async(req) => {
 		try{
 	    const [visitResult] = await connection.query(queryForVisit, id)
 
-      // Data 형식 추후 확인
 			if(visitResult.length == 0) {
 				connection.release()
 				return { msg: 'There are no exhibitions visited by this user.' }
@@ -103,7 +102,7 @@ const getExhibitionsByUser = async(req) => {
 			let exhibitionResult = []
 
 			for(let i = 0; i < visitResult.length; i++) {
-				const [result] = await connection.query(queryForExhibition, visitResult[i].ex_id)
+				const [result] = await connection.query(queryForExhibition, visitResult[i].visit_ex)
 				exhibitionResult.push(result) 
 			}
 

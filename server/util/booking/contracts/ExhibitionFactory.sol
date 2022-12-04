@@ -10,8 +10,8 @@ contract ExhibitionFactory is Ownable, Pausable {
 	event ExhibitionCreated(address indexed _creator, address _exhibition, uint256 _depositedValue);
 
 	//전시회 만들기
-	function createExhibition(uint256 _minimum) external payable {
-		Exhibition exhibition = new Exhibition{value: msg.value}(msg.sender, _minimum);
+	function createExhibition(uint256 price) external payable {
+		Exhibition exhibition = new Exhibition{value: msg.value}(msg.sender, price);
 		emit ExhibitionCreated(msg.sender, address(exhibition), msg.value);
 	}
 

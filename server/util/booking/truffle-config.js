@@ -97,7 +97,7 @@ module.exports = {
     //   production: true    // Treats this network as if it was a public net. (default: false)
     // }
     ganache: {
-      host: '127.0.0.1',
+      host: '54.180.109.101',
       port: 8545,
       network_id: "*"
     }
