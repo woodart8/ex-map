@@ -153,7 +153,7 @@ const FormContainer = styled.div`
     }
 `;
 
-function Login({ setLoginId, setLoginState, setLoginName, setLoginProfile }) {
+function Login({ setLoginId, setLoginState, setLoginName, setLoginProfile, setLoginAddr }) {
     const [id, setId] = useState('')
     const [password, setPassword] = useState('')
 
@@ -177,6 +177,8 @@ function Login({ setLoginId, setLoginState, setLoginName, setLoginProfile }) {
                     setLoginState(response.data.loginState)
                     setLoginName(response.data.loginName)
                     setLoginProfile(response.data.loginProfile)
+                    setLoginAddr(response.data.loginAddr)
+
                     navigate('/')
                 }
         })
