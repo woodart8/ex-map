@@ -15,13 +15,25 @@ const login = async(req) => {
     const userResult = await connection.query(queryForUser, [id, password])
     if(userResult[0].length > 0) {
       connection.release();
-      return { success: true, loginId: id, loginState: 'user', loginName: userResult[0][0].user_name, loginProfile: userResult[0][0].user_img };
+      return { 
+        success: true, 
+        loginId: id, 
+        loginState: 'user', 
+        loginName: userResult[0][0].user_name, 
+        loginProfile: userResult[0][0].user_img,
+        loginAddr: userResult[0][0].user_addr };
     }
 
     const docentResult = await connection.query(queryForDocent, [id, password])
     if(docentResult[0].length > 0) {
       connection.release();
-      return { success: true, loginId: id, loginState: 'docent', loginName: docentResult[0][0].docent_name, loginProfile: docentResult[0][0].docent_img };
+      return { 
+        success: true, 
+        loginId: id, 
+        loginState: 'docent', 
+        loginName: docentResult[0][0].docent_name, 
+        loginProfile: docentResult[0][0].docent_img,
+        loginAddr: '' };
     }
 
     connection.release()

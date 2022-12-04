@@ -16,19 +16,22 @@ function App() {
   const [loginState, setLoginState] = useState('')
   const [loginName, setLoginName] = useState('')
   const [loginProfile, setLoginProfile] = useState('')
+  const [loginAddr, setLoginAddr] = useState('')
 
   const loginUserProps = {
     loginId,
     loginState,
     loginName,
-    loginProfile
+    loginProfile,
+    loginAddr
   }
 
   const hookProps = {
     setLoginId,
     setLoginState,
     setLoginName,
-    setLoginProfile
+    setLoginProfile,
+    setLoginAddr
   }
   
   return (
