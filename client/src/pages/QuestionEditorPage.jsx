@@ -3,11 +3,13 @@ import GlobalStyle from '../components/GlobalStyle';
 import Editor from '../components/Editor'
 import MainHeader from '../components/MainHeader'
 
-const PromotionEditorPage = ({...loginUserProps}) => {
+const QuestionEditorPage = ({...loginUserProps}) => {
   const obj = {
-    editorState: 'promotion',
+    editorState: 'question',
+    exTitle: '',
     userId: loginUserProps.loginId
   }
+    console.log(obj);
     return (
         <div>
             <GlobalStyle />
@@ -17,4 +19,4 @@ const PromotionEditorPage = ({...loginUserProps}) => {
     )
 }
 
-export default PromotionEditorPage;
+export default QuestionEditorPage;
