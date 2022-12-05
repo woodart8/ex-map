@@ -79,7 +79,7 @@ const PromotionItemForm = styled.div`
     width: 115px;
     height: 45px;
     right: 30px;
-    top: 130px;
+    top: 107px;
     
     background: #000000;
     border-radius: 40px;
