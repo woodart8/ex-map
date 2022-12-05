@@ -61,12 +61,12 @@ const getInfoByDocent = async(req) => {
   try {
     const connection = await pool.getConnection(async conn => conn)
 
-    const queryForInfo = `SELECT docnet_id, docent_name, docent_email, docent_img FROM docent`
+    const queryForInfo = `SELECT docent_id, docent_name, docent_email, docent_img FROM docent`
     let queryForAnswerCount = ``
     try {
       const [infoRows] = await connection.query(queryForInfo)
       for(let i = 0; i<infoRows.length; i++) {
-        queryForAnswerCount = `SELECT COUNT(*) AS answerCnt FROM answer WHERE answer_writer = ${infoRows[i].docent_id}`
+        queryForAnswerCount = `SELECT COUNT(*) AS answerCnt FROM answer WHERE answer_writer = '${infoRows[i].docent_id}'`
         const answer = await connection.query(queryForAnswerCount)
         infoRows[i]['answer_count'] = answer[0][0].answerCnt
       }
@@ -74,6 +74,7 @@ const getInfoByDocent = async(req) => {
       return infoRows
     } catch(err) {
       console.log('Query error')
+      console.log(err)
       connection.release()
       return false
     }
