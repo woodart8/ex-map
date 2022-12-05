@@ -13,7 +13,6 @@ const QuestionEditorPage = ({...loginUserProps}) => {
   }
   if(location.state !== null) obj.exTitle = location.state.ex_title;
 
-  console.log(obj);
   return (
       <div>
           <GlobalStyle />

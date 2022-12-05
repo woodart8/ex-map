@@ -1,12 +1,12 @@
 import React from 'react'
-import GlobalStyle from '../components/GlobalStyle';
+import GrayBackground from '../components/GrayBackground';
 import MainHeader from '../components/MainHeader'
 import Promotion from '../components/Promotion';
 
 const PromotionPage = ({...loginUserProps}) => {
     return (
         <div>
-            <GlobalStyle />
+            <GrayBackground />
             <MainHeader {...loginUserProps} />
             <Promotion />
         </div>

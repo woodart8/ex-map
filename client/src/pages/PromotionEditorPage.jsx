@@ -1,5 +1,5 @@
 import React from 'react'
-import GlobalStyle from '../components/GlobalStyle';
+import GrayBackground from '../components/GrayBackground';
 import Editor from '../components/Editor'
 import MainHeader from '../components/MainHeader'
 
@@ -10,7 +10,7 @@ const PromotionEditorPage = ({...loginUserProps}) => {
   }
     return (
         <div>
-            <GlobalStyle />
+            <GrayBackground />
             <MainHeader {...loginUserProps} />
             <Editor {...obj} />
         </div>

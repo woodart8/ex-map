@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom"
 import styled from "styled-components";
-const ExhibitionItemContainer = styled.div`
+const PromotionItemContainer = styled.div`
   position: relative;
   width: 900px;
   height: 250px;
@@ -10,7 +10,7 @@ const ExhibitionItemContainer = styled.div`
   transform: translateX(-50%);
 `;
 
-const ExhibitionItemForm = styled.div`
+const PromotionItemForm = styled.div`
   position: relative;
   display: flex;
   width: 900px;
@@ -23,7 +23,7 @@ const ExhibitionItemForm = styled.div`
   border-radius: 10px;
   border: none;
   
-  .exhibition-img {
+  .promotion-img {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -32,7 +32,7 @@ const ExhibitionItemForm = styled.div`
     width: 110px;
   }
 
-  .exhibition-title {
+  .promotion-title {
     position: absolute;
     width: 500px;
     height: 50px;
@@ -52,7 +52,7 @@ const ExhibitionItemForm = styled.div`
     color: #000000;
   }
 
-  .exhibition-info {
+  .promotion-content {
     position: absolute;
     width: 500px;
     height: 84px;
@@ -74,26 +74,7 @@ const ExhibitionItemForm = styled.div`
     color: #000000;
   }
 
-  .booking-exhibition {
-    position: absolute;
-    width: 115px;
-    height: 45px;
-    right: 30px;
-    top: 70px;
-    
-    background: #000000;
-    border-radius: 40px;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 21px;
-    line-height: 25px;
-
-    color: #FFFFFF;
-  }
-
-  .ask-question {
+  .detail {
     position: absolute;
     width: 115px;
     height: 45px;
@@ -115,34 +96,25 @@ const ExhibitionItemForm = styled.div`
 
 function Item({item}){
     return (
-      <ExhibitionItemContainer>
-        <ExhibitionItemForm>
-            <img className="exhibition-img" src={item.ex_img}></img> 
-            <div className="exhibition-title">{item.ex_title}</div>
-            <div className="exhibition-info">{item.ex_info}</div>
-          <Link to={`/booking/${item.ex_id}`} 
+      <PromotionItemContainer>
+        <PromotionItemForm>
+            <img className="promotion-img" src={item.pro_img}></img> 
+            <div className="promotion-title">{item.pro_title}</div>
+            <div className="promotion-content">{item.pro_content}</div>
+          <Link to={`/promotion/${item.pro_id}`} 
             state={{
-              ex_id: item.ex_id,
-              ex_title: item.ex_title,
-              ex_info: item.ex_info,
-              ex_img: item.ex_img,
-              ex_ticket: item.ex_ticket,
-              ex_start: item.ex_start,
-              ex_end: item.ex_end,
-              ex_place: item.ex_place,
-              ex_addr: item.ex_addr
+              pro_id: item.pro_id,
+              pro_title: item.pro_title,
+              pro_writer: item.pro_writer,
+              pro_content: item.pro_content,
+              pro_period: item.pro_period,
+              pro_place: item.pro_place,
+              pro_img: item.pro_img
             }}>
-              <button className="booking-exhibition">결제하기</button>
+              <button className="detail">상세정보</button>
           </Link>
-          <Link to={`/question/post`} 
-            state={{
-              ex_id: item.ex_id,
-              ex_title: item.ex_title,
-            }}>
-              <button className="ask-question">질문하기</button>
-          </Link>
-        </ExhibitionItemForm>
-      </ExhibitionItemContainer>
+        </PromotionItemForm>
+      </PromotionItemContainer>
     );
   }
   
