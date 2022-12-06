@@ -13,6 +13,7 @@ import PromotionEditorPage from './pages/PromotionEditorPage'
 import ExhibitionPage from './pages/ExhibitionPage'
 import MypagePage from './pages/MypagePage'
 import DocentPage from './pages/DocentPage'
+import BookingPage from './pages/BookingPage'
 
 function App() {
   const [loginId, setLoginId] = useState('')
@@ -54,6 +55,7 @@ function App() {
           <Route path='/qna/:qid' element={<QnADetail {...loginUserProps} />} />
           <Route path={`/mypage/${loginId}`} element={<MypagePage {...loginUserProps}/>}/>
           <Route path='/docent' element={<DocentPage {...loginUserProps} />} />
+          <Route path={'/booking/:ex_id'} element={<BookingPage {...loginUserProps} />} />
         </Routes>
       </div>
     </div>
