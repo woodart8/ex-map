@@ -1,14 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const { pool } = require('../db')
 
 const exhibition = require('../util/booking/build/contracts/Exhibition.json')
 const Contract = require('../src/Contract')
-const Provider = require('../src/Provider')
 
-const provider = new Provider()
 const contract = new Contract()
-const web3 = provider.web3
 
 const booking = async(req) => {
 	const exhibitionADDRESS = req.body.exhibitionADDRESS
@@ -16,8 +12,11 @@ const booking = async(req) => {
 	const value = req.body.value
 
 	const exInstance = contract.initContract(exhibition.abi, exhibitionADDRESS)
+	const EventEmitter = exInstance.events.bookingCompleted()
 
-	let run = async () => {
+	let result = { success: false }
+
+	const run = async () => {
 		try {
 			await exInstance.methods
 				.booking()
@@ -26,22 +25,21 @@ const booking = async(req) => {
 					value : value,
 					gas : 2000000,
 				})
-			return { success: true }
 		} catch (error){
-			console.log(error)
-			return { err: err, success: false }
+			result = { success: false, err: error }
+			// console.log(error)
 		}
 	}
-	let bookingCompletedEvent = async() => {
-		await exInstance.events
-			.bookingCompleted()
-			.once('data', async (event) => {
-				console.log(event)
-			})
-			.on('error', console.error)
-	}
-	run()
-	bookingCompletedEvent()
+
+	EventEmitter
+	.on('data', (event) => {
+		result = { success: true }
+		// console.log(event)
+	})
+
+	await run()
+
+	return result
 }
 
 
