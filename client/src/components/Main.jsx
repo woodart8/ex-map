@@ -40,23 +40,22 @@ const SmallText=styled.div`
   color: white;
 `;
 
-const PrevNext=styled.div`
-  position:absolute;
-  color:white;
-  text-align: center;
-  top:350px;
-  font-size: 40px;
-  cursor: pointer;
-`;
-
 const Prev=styled.div`
   position:absolute;
-  left:20px;
+  left:2%;
+  top:40%;
+  font-size: 40px;
+  color:white;
+  cursor: pointer;
 `;
 
 const Next=styled.div`
   position:absolute;
-  left:1420px;
+  left:96%;
+  top:40%;
+  font-size: 40px;
+  color:white;
+  cursor: pointer;
 `;
 
 function SlideImg(props){
@@ -73,7 +72,8 @@ const Circle=styled.div`
   position: absolute;
   width: 400px;
   height: 400px;
-  left: 520px;
+  left: 50%;
+  transform: translate(-50%, 0%);
   top: 200px;
   background: white;
   border-radius: 50%;
@@ -86,6 +86,7 @@ function SlideImgText(props){
     "left":props.imgtextInfo.left,
     "width":props.imgtextInfo.width, 
     "height":props.imgtextInfo.height,
+    "transform": "translate(-50%, 0%)",
 
     "fontFamily":"Inter",
     "fontSize": props.imgtextInfo.fsize,
@@ -118,7 +119,7 @@ function SlideText(props){
 }
 
 function Controller(props){
-  return <PrevNext>
+  return <>
     <Prev onClick={()=>{
       if(props.id===0)
         props.onChangeMode(4);
@@ -132,7 +133,7 @@ function Controller(props){
       else
       props.onChangeMode(props.id+1)
     }}>&rang;</Next>
-  </PrevNext>
+  </>
 }
 
 function Main({...loginUserProps}) {
@@ -146,11 +147,11 @@ function Main({...loginUserProps}) {
   ]
 
   const imgtextInfo=[
-    {id:0,text:"나 만 의\n미술 · 전시\n아카이브", fsize:"60px", weight:"400",width:"400px", height:"400px", top:"53px",left:"0px", color:"black",align:"center"},
-    {id:1,text:"지도 뷰를 통해\n전국 전시회를 한눈에!", fsize:"80px", weight:"700", width:"830px", height:"214px", top:"307px", left:"331px", color:"white",align:"center"},
-    {id:2,text:"별점·후기를\n공유하자!", fsize:"80px", weight:"700",width:"430px", height:"385px", top:"194px", left:"929px", color:"black",align:"right"},
-    {id:3,text:"나만의\n개인전을\n알릴 기회!", fsize:"80px", weight:"700", width:"400px", height:"385px", top:"265px", left:"200px", color:"black",align:"left"},
-    {id:4,text:"전문 도슨트와의\nQ&A를 주고받자!", fsize:"80px", weight:"700", width:"728px", height:"436px", top:"211px", left:"659px", color:"white",align:"right"}
+    {id:0,text:"나 만 의\n미술 · 전시\n아카이브", fsize:"60px", weight:"400",width:"400px", height:"400px", top:"53px",left:"50%", color:"black",align:"center"},
+    {id:1,text:"지도 뷰를 통해\n전국 전시회를 한눈에!", fsize:"80px", weight:"700", width:"830px", height:"214px", top:"307px", left:"50%", color:"white",align:"center"},
+    {id:2,text:"별점·후기를\n공유하자!", fsize:"80px", weight:"700",width:"430px", height:"385px", top:"194px", left:"75%", color:"black",align:"right"},
+    {id:3,text:"나만의\n개인전을\n알릴 기회!", fsize:"80px", weight:"700", width:"400px", height:"385px", top:"265px", left:"25%", color:"black",align:"left"},
+    {id:4,text:"전문 도슨트와의\nQ&A를 주고받자!", fsize:"80px", weight:"700", width:"728px", height:"436px", top:"200px", left:"70%", color:"white",align:"right"}
   ]
 
   const textInfo=[

@@ -136,6 +136,8 @@ function Docent() {
       }
       console.log(doc_info);
     })
+
+    doc_info.sort((a,b)=>b.answer_count-a.answer_count);
     
   return (
         <DocentListForm>
