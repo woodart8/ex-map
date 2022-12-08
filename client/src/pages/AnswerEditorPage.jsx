@@ -10,7 +10,9 @@ const AnswerEditorPage = ({...loginUserProps}) => {
     editorState: 'answer',
     qid: location.state.question_id,
     qTitle: location.state.question_title,
-    docentId: loginUserProps.loginId
+    qContent: location.state.question_content,
+    qWriter: location.state.question_writer,
+    userId: loginUserProps.loginId
   }
     return (
         <div>

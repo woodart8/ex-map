@@ -275,7 +275,7 @@ function QnAView({...loginUserProps}) {
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(-1);
+    navigate('/qna');
   }
 
   const clickPostAnswer = () => {
