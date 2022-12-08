@@ -7,12 +7,15 @@ import SignupPage from '../src/pages/SignupPage'
 import QnADetail from '../src/pages/QnADetail'
 import QnAPage from '../src/pages/QnAPage'
 import QuestionEditorPage from './pages/QuestionEditorPage'
+import ReviewEditorPage from './pages/ReviewEditorPage'
 import AnswerEditorPage from './pages/AnswerEditorPage'
 import PromotionPage from './pages/PromotionPage'
+import Promotion2Page from './pages/Promotion2Page'
 import PromotionEditorPage from './pages/PromotionEditorPage'
 import ExhibitionPage from './pages/ExhibitionPage'
 import MypagePage from './pages/MypagePage'
 import DocentPage from './pages/DocentPage'
+import BookingPage from './pages/BookingPage'
 import Booking2Page from './pages/Booking2Page'
 
 function App() {
@@ -48,13 +51,16 @@ function App() {
           <Route path='/exhibition' element={<ExhibitionPage {...loginUserProps} />} />
           <Route path='/map' element={<MapPage {...loginUserProps} />} />
           <Route path='/promotion' element={<PromotionPage {...loginUserProps} />} />
+          <Route path='/promotion/:ex_id' element={<Promotion2Page {...loginUserProps} />} />
           <Route path='/promotion/post' element={<PromotionEditorPage {...loginUserProps} />} />
           <Route path='/qna' element={<QnAPage {...loginUserProps} />} />
           <Route path='/question/post' element={<QuestionEditorPage {...loginUserProps} />} />
+          <Route path='/review/post' element={<ReviewEditorPage {...loginUserProps} />} />
           <Route path='/answer/post' element={<AnswerEditorPage {...loginUserProps} />} />
           <Route path='/qna/:qid' element={<QnADetail {...loginUserProps} />} />
           <Route path={`/mypage/${loginId}`} element={<MypagePage {...loginUserProps}/>}/>
           <Route path='/docent' element={<DocentPage {...loginUserProps} />} />
+          <Route path={'/booking/:ex_id'} element={<BookingPage {...loginUserProps} />} />
           <Route path='/booking2' element={<Booking2Page {...loginUserProps} />} />
         </Routes>
       </div>

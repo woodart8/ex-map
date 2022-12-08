@@ -10,6 +10,7 @@ const Container=styled.div`
     background-color: #EDEDED;
     position: relative;
 `;
+
 const Line1=styled.hr`
     border: 1px solid #000000;
     margin:0px;
