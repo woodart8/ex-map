@@ -15,8 +15,10 @@ const { kakao } = window;
 let mappingList = [];
 
 const MapPageContainer = styled.div`
+  position:relative;
+  left:12%;
   width:1440px;
-  height: 935px;
+  height: 850px;
   display: inline-block;
   display:flex;
 `;
@@ -27,10 +29,11 @@ const MapPageContainer = styled.div`
 const ListBox = styled.div`
 
   width: 340px;
-  height: 933px;
+  height: 850px;
   border: 1px solid black;
   overflow-y:scroll;
   overflow-x:hidden;
+  background-color: #FFFFFF;
 
 `;
 
@@ -68,18 +71,18 @@ const Review = styled.div`
 
 const MapBox = styled.div`
   width: 1100px;
-  height: 933px;
+  height: 850px;
   border: 1px solid black;
 
   #map {
     width: 1100px;
-    height: 865px;
+    height: 785px;
     border: 1px solid black;
   }
 
   #setting {
     width:1100px;
-    height:68px;
+    height:65px;
 
   
     .MapLockButton{
