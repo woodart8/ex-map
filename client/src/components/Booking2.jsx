@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import check1 from '../assets/check1.png'
+import { useLocation } from 'react-router-dom';
 
 const Container=styled.div`
     height: 1218px;
@@ -81,6 +82,8 @@ const Text3=styled.div`
     color: #000000;
 `;
 function Booking2({ loginId, loginState, loginName }){
+    const location = useLocation()
+    
     return <Container>
         <Line1></Line1>
         <Rectangle1>
@@ -89,7 +92,7 @@ function Booking2({ loginId, loginState, loginName }){
             <Text2 top='322px'>결제자</Text2>
             <Text3 top='322px'>{loginName}</Text3>
             <Text2 top='368px'>전시회</Text2>
-            <Text3 top='368px'>{}</Text3>
+            <Text3 top='368px'>{location.state.ex_title}</Text3>
         </Rectangle1>
     </Container>
 }

@@ -8,7 +8,7 @@ const BookingPage =  ({...loginUserProps}) => {
     <div>
       <GrayBackground />
       <MainHeader {...loginUserProps} />
-      <Booking />
+      <Booking {...loginUserProps} />
     </div>
   )
 }
