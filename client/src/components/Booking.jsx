@@ -142,7 +142,7 @@ const Text=styled.div`
 
 `;
 
-function Booking(props){
+function Booking({ loginAddr }){
     const location = useLocation();
    const [title, setTitle] = useState(location.state.ex_title)
    const [poster, setPoster] = useState(location.state.ex_img)
@@ -158,7 +158,11 @@ function Booking(props){
 
    function Click(){
     console.log("test")
-    Axios.post('http://localhost:5000/api/booking')
+    Axios.post('http://localhost:5000/api/booking', {
+        'exhibitionADDRESS': addr,
+        'sender': loginAddr,
+        'value': price
+    })
     .then((response) => {
             if(response.data.success) {
                 navigate('/booking2',{
