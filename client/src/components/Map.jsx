@@ -6,6 +6,8 @@ import lock_off from '../assets/lock_off.png'
 import zoom_in from '../assets/plus.png'
 import zoom_off from '../assets/minus.png'
 import exampleImg from '../assets/first_main.jpg'
+import { useNavigate } from 'react-router-dom'
+
 
 
 const { kakao } = window;
@@ -32,12 +34,29 @@ const ListBox = styled.div`
 
 `;
 
+
 const Review = styled.div`
   display:flex;
   
 
   #ReviewButton{
     cursor: pointer;
+    position: relative;
+    top: 10px;
+    left: 0px;
+    background-color: #D9D9D9;
+    color: #000;
+    font-size: 20px;
+    width: 65px;
+    height: 30px;
+    border-radius: 15px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+
   }
 
   #CheckBox{
@@ -92,7 +111,80 @@ const MapBox = styled.div`
     }
   }
 `
+const BoldText=styled.div`
+        position: relative;
+        width: 280px;
 
+
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 36px;
+
+        color: #000000;
+
+        ${({left})=>
+        `    left: ${left};
+        `}
+        ${({top})=>
+        `    top: ${top};
+        `}
+        ${({width})=>
+        `    width: ${width};
+        `}
+        ${({height})=>
+        `    height: ${height};
+        `}
+`;
+
+const Text=styled.div`
+    position: relative;
+    width: 280px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #000000;
+    overflow: hidden;
+
+        ${({left})=>
+        `    left: ${left};
+        `}
+        ${({top})=>
+        `    top: ${top};
+        `}
+        ${({width})=>
+        `    width: ${width};
+        `}
+        ${({height})=>
+        `    height: ${height};
+        `}
+
+`;
+
+const Poster=styled.img`
+    position: relative;
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+
+    ${({left})=>
+        `    left: ${left};
+        `}
+        ${({top})=>
+        `    top: ${top};
+        `}
+        ${({width})=>
+        `    width: ${width};
+        `}
+        ${({height})=>
+        `    height: ${height};
+        `}
+`;
 
 function Map() {
   const [map, setMap] = useState(null);
@@ -146,14 +238,14 @@ function Map() {
       .then((response) => {
         console.log("test")
         if(ListContents.length==0) {
-          const ListContent=(response.data).map((exhibision,index) => (  
+          const ListContent=(response.data).map((exhibition,index) => (  
             <>
               <ul id = {index}
                   onClick={()=> ListClick(index,response.data)}>
-                <img src={exhibision.ex_img} width="100px"></img> 
-                <li>Name: {exhibision.ex_title}</li>
-                <li>Start_Date:{exhibision.ex_start}</li>
-                <li>Finish_Date: {exhibision.ex_end}</li>
+                <Poster src={exhibition.ex_img} ></Poster> 
+                <BoldText>{exhibition.ex_title}</BoldText>
+                <Text >{exhibition.ex_start} ~</Text>
+                <Text >{exhibition.ex_end}</Text>
               </ul>
               <hr />
             </>));
@@ -163,19 +255,22 @@ function Map() {
       })
 
   function ListClick(ClickIndex,List){
-    const newArr = List.map((exhibision,index) => (  
+    console.log(List)
+    const newArr = List.map((exhibition,index) => (  
       <>
         <ul id = {index}
             onClick={()=> ListClick(index,List)}>
-          <img src={exhibision.ex_img} width="100px"></img> 
-          <li>Name: {exhibision.ex_title}</li>
-          <li>Start_Date:{exhibision.ex_start}</li>
-          <li>Finish_Date: {exhibision.ex_end}</li>
+          <Poster src={exhibition.ex_img} ></Poster> 
+          <BoldText>{exhibition.ex_title}</BoldText>
+          <Text >{exhibition.ex_start} ~</Text>
+          <Text >{exhibition.ex_end}</Text>
           {(ClickIndex===index) &&  <div>
-            <li>상세내용 : {exhibision.ex_info}</li>
+            <Text>{exhibition.ex_info}</Text>
             <Review>
-              <button id='ReviewButton'><link to={"/"+exhibision.ex_id}></link>리뷰 </button>
-              <input id='CheckBox' type="checkbox" /> {/* 체크 박스 정보 추가 필요*/}
+              <button id='ReviewButton' onClick={()=>clickReview(exhibition)}>리뷰</button>
+              
+              
+              <input id='CheckBox' type="checkbox" size="20px"/> {/* 체크 박스 정보 추가 필요*/}
             </Review>
           </div>}
           
@@ -230,14 +325,14 @@ function Map() {
           }
         }
 
-        const ListContent=temp_arr.map((exhibision,index) => (
+        const ListContent=temp_arr.map((exhibition,index) => (
           <>
             <ul id = {index}
                   onClick={()=> ListClick(index,temp_arr)}>
-              <img src={exhibision.ex_img} width="100px"></img> 
-              <li>Name: {exhibision.ex_title}</li>
-              <li>Start_Date:{exhibision.ex_start}</li>
-              <li>Finish_Date: {exhibision.ex_end}</li>
+              <Poster src={exhibition.ex_img} ></Poster> 
+              <BoldText>{exhibition.ex_title}</BoldText>
+              <Text >{exhibition.ex_start} ~</Text>
+              <Text >{exhibition.ex_end}</Text>
             </ul>
             <hr />
           </>));
@@ -247,6 +342,14 @@ function Map() {
     }
 
     
+  }
+
+  const navigate = useNavigate();
+
+  const clickReview = (exhibition) => {
+    navigate('/review/post',{state: 
+      exhibition
+  });
   }
 
   

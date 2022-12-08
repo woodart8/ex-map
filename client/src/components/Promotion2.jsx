@@ -1,19 +1,19 @@
 import styled, { css } from 'styled-components'
 import React, { useState, useEffect } from 'react'
-import { Link } from "react-router-dom"
-import { useNavigate } from 'react-router-dom'
+
+
 import Axios from 'axios'
 import { useLocation } from 'react-router-dom';
 
 
-const BookingPage=styled.div`
+const Promotion2Page=styled.div`
     height: 937px;
     width: 100%;
     background-color: #EDEDED;
     position: relative;
 `;
 
-const BookingContainer = styled.div`
+const PromotionContainer = styled.div`
   width: 918px;
   height: 784px;
   background-color: #fff;
@@ -25,24 +25,7 @@ const BookingContainer = styled.div`
 `
 
 
-const BookingButton=styled.button`
-    position: absolute;
-    top: 795px;
-    left: 1500px;
-    background-color: #000;
-    color: #fff;
-    font-size: 20px;
-    width: 115px;
-    height: 49px;
-    border-radius: 40px;
 
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 21px;
-    line-height: 25px;
-    cursor: pointer;
-`
 
 const Line1=styled.hr`
     position: absolute;
@@ -142,54 +125,47 @@ const Text=styled.div`
 
 `;
 
-function Booking(props){
+function Promotion2(props){
     const location = useLocation();
-   const [title, setTitle] = useState(location.state.ex_title)
-   const [poster, setPoster] = useState(location.state.ex_img)
-   const [price, setPrice] = useState(location.state.ex_ticket)
-   const [start, setStart] = useState(location.state.ex_start)
-   const [end, setEnd] = useState(location.state.ex_end)
-   const [place, setPlace] = useState(location.state.ex_place)
-   const [addr,setAddr]=useState(location.state.ex_addr)
-   const [info, setInfo] = useState(location.state.ex_info)
-   const [ex_id,setEx_id]=useState(location.state.ex_id)
 
-   const navigate = useNavigate()
+    const [promotionExhi, setPromotionExhi] = useState([])
 
-   function Click(){
-    console.log("test")
-    Axios.post('http://localhost:5000/api/booking')
-    .then((response) => {
-            if(response.data.success) {
-                navigate('/booking2',{
-                    state:{
-                        ex_id: ex_id,
-                        ex_title: title
-                      }
-                })
+    const [poster, setPoster] = useState(location.state.pro_img)
+    const [title, setTitle] = useState(location.state.pro_title)
+    const [writer, setWriter] = useState(location.state.pro_writer)
+    const [period, setPeriod] = useState(location.state.pro_period)
+    const [place, setPlace] = useState(location.state.pro_place)
+    const [info, setInfo] = useState(location.state.pro_info)
+    const [pro_id,setEx_id]=useState(location.state.pro_id)
+
+    Axios.post(
+        'http://localhost:5000/api/promotion/proid',
+        {proId: pro_id }).then((response) => {
+            if(promotionExhi.length==0) {
+                setPromotionExhi(response.data[0])
             }
+            
     })
-   }
+
    return(
-    <BookingPage>
-        <BookingContainer>
+    <Promotion2Page>
+        <PromotionContainer>
             <Poster src={poster}></Poster>
-            <Title left="413px" top="60px">{title}</Title>
+            <Title left="413px" top="48px">{promotionExhi.pro_title}</Title>
             <Line1 left="403px" top="119px" width="467px"></Line1>
-            <BoldText left="413px" top="180px">티켓 가격</BoldText>
-            <Text left="592px" top="182px">{price}</Text>
+            <BoldText left="413px" top="180px">게시자</BoldText>
+            <Text left="592px" top="182px">{promotionExhi.pro_writer}</Text>
             <BoldText left="413px" top="262px">전시 기간</BoldText>
-            <Text left="592px" top="264px">{start} ~ {end}</Text>
+            <Text left="592px" top="264px">{promotionExhi.pro_period}</Text>
             <BoldText left="413px" top="342px">전시 장소</BoldText>
-            <Text left="592px" top="346px">{place}</Text>
+            <Text left="592px" top="346px">{promotionExhi.pro_place}</Text>
             {/* <Text left="592px" top="370px" width="240px" height="50px">{addr}</Text> */}
             <Line1 left="58px" top="451px" width="800px"></Line1>
             <BoldText left="76px" top="475px">상세정보</BoldText>
-            <Text left="81px" top="539px" width="761px" height="178px">{info}</Text>
-        </BookingContainer>
-        <BookingButton onClick={()=>Click()}>결제하기</BookingButton>
-    </BookingPage>
+            <Text left="81px" top="539px" width="761px" height="178px">{promotionExhi.pro_content}</Text>
+        </PromotionContainer>
+    </Promotion2Page>
    )
 }
-export default Booking;
+export default Promotion2;
   

@@ -109,7 +109,8 @@ function Item({item}){
               pro_content: item.pro_content,
               pro_period: item.pro_period,
               pro_place: item.pro_place,
-              pro_img: item.pro_img
+              pro_img: item.pro_img,
+              pro_info: item.pro_content
             }}>
               <button className="detail">상세정보</button>
           </Link>
