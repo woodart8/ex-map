@@ -290,6 +290,12 @@ function AnswerEditor(props) {
   const [content, setContent] = useState('')
   const [fileState, setFileState] = useState('')
   const [qid, setQid] = useState(props.qid)
+  const questionData = {
+    question_id: props.qid,
+    question_title: props.qTitle,
+    question_content: props.qContent,
+    question_writer: props.qWriter
+  }
 
   const navigate = useNavigate()
 
@@ -314,7 +320,7 @@ function AnswerEditor(props) {
           'http://localhost:5000/api/answer/post',
           obj).then((response) => {
               if(response.data.success) {
-                  navigate('/qna/'+qid)
+                  navigate('/qna/'+qid, {state:questionData})
               }
       })
 
@@ -330,7 +336,7 @@ function AnswerEditor(props) {
           'http://localhost:5000/api/answer/post/image',
           formData).then((response) => {
               if(response.data.success) {
-                  navigate('/qna/'+qid)
+                  navigate('/qna/'+qid, {state:questionData})
               }
       })
     }
