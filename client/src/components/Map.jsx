@@ -5,7 +5,7 @@ import lock_on from '../assets/lock_on.png'
 import lock_off from '../assets/lock_off.png'
 import zoom_in from '../assets/plus.png'
 import zoom_off from '../assets/minus.png'
-import exampleImg from '../assets/first_main.jpg'
+import starImg from '../assets/star.png'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -21,6 +21,14 @@ const MapPageContainer = styled.div`
   height: 850px;
   display: inline-block;
   display:flex;
+`;
+
+const Flex = styled.div`
+  display:flex;
+`;
+
+const Ul = styled.div`
+  padding-left :10px;
 `;
 
 
@@ -45,7 +53,7 @@ const Review = styled.div`
   #ReviewButton{
     cursor: pointer;
     position: relative;
-    top: 10px;
+    top: 0px;
     left: 0px;
     background-color: #D9D9D9;
     color: #000;
@@ -57,13 +65,29 @@ const Review = styled.div`
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 17px;
     line-height: 25px;
 
   }
+  #StarImg{
+    margin-top:5px;
+    margin-left:150px;
+    width:20px;
+    height:20px;
+  }
+
+  #Star{
+    margin-left:10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 15px;
+    line-height: 30px;
+    color:#ffd500
+  }
 
   #CheckBox{
-    margin-left:200px;
+    margin-left:10px;
     cursor: pointer;
     float : right;
   }
@@ -116,8 +140,12 @@ const MapBox = styled.div`
 `
 const BoldText=styled.div`
         position: relative;
-        width: 280px;
-
+        width: 200px;
+        word-break:break-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-left: 15px;
 
         font-family: 'Inter';
         font-style: normal;
@@ -143,16 +171,22 @@ const BoldText=styled.div`
 
 const Text=styled.div`
     position: relative;
-    width: 280px;
+    width: 200px;
+    padding-left: 15px;
 
     font-family: 'Inter';
     font-style: normal;
     font-weight: 200;
-    font-size: 20px;
+    font-size: 15px;
     line-height: 30px;
 
     color: #000000;
+    word-break:break-word;
+    white-space: pre-wrap;
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 
         ${({left})=>
         `    left: ${left};
@@ -166,14 +200,19 @@ const Text=styled.div`
         ${({height})=>
         `    height: ${height};
         `}
-
+        ${({size})=>
+        `    font-size: ${size};
+        `}
 `;
+
 
 const Poster=styled.img`
     position: relative;
-    box-sizing: border-box;
-    width: 100px;
-    height: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    min-height: 100px;
+    max-height: 100px;
+    object-fit: scale-down;
 
     ${({left})=>
         `    left: ${left};
@@ -189,7 +228,47 @@ const Poster=styled.img`
         `}
 `;
 
-function Map() {
+const DetailPoster=styled.img`
+    position: relative;
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 150px;
+    max-height: 150px;
+    object-fit: scale-down;
+
+    ${({left})=>
+        `    left: ${left};
+        `}
+        ${({top})=>
+        `    top: ${top};
+        `}
+        ${({width})=>
+        `    width: ${width};
+        `}
+        ${({height})=>
+        `    height: ${height};
+        `}
+`;
+const DetailDiv=styled.div`
+    position: relative;
+    width: 300px;
+    text-align : center;
+
+    ${({left})=>
+        `    left: ${left};
+        `}
+        ${({top})=>
+        `    top: ${top};
+        `}
+        ${({width})=>
+        `    width: ${width};
+        `}
+        ${({height})=>
+        `    height: ${height};
+        `}
+`;
+
+function Map(loginId) {
   const [map, setMap] = useState(null);
   const [ListContents, setListContents] = useState([]);
   const [ListCheck, setListCheck] = useState([]);
@@ -243,13 +322,17 @@ function Map() {
         if(ListContents.length==0) {
           const ListContent=(response.data).map((exhibition,index) => (  
             <>
-              <ul id = {index}
-                  onClick={()=> ListClick(index,response.data)}>
-                <Poster src={exhibition.ex_img} ></Poster> 
-                <BoldText>{exhibition.ex_title}</BoldText>
-                <Text >{exhibition.ex_start} ~</Text>
-                <Text >{exhibition.ex_end}</Text>
-              </ul>
+              <Ul id = {index}
+                  onClick={()=> ClickList(exhibition)}>
+                <Flex>
+                  <Poster src={exhibition.ex_img} ></Poster> 
+                  <div>
+                    <BoldText>{exhibition.ex_title}</BoldText>
+                    <Text size="20px">{exhibition.ex_start} ~</Text>
+                    <Text size="20px">{exhibition.ex_end}</Text>
+                  </div>
+                </Flex>
+              </Ul>
               <hr />
             </>));
         setListContents(ListContent)
@@ -257,34 +340,66 @@ function Map() {
         makeMarkers(response.data)
       })
 
-  function ListClick(ClickIndex,List){
-    console.log(List)
-    const newArr = List.map((exhibition,index) => (  
-      <>
-        <ul id = {index}
-            onClick={()=> ListClick(index,List)}>
-          <Poster src={exhibition.ex_img} ></Poster> 
-          <BoldText>{exhibition.ex_title}</BoldText>
-          <Text >{exhibition.ex_start} ~</Text>
-          <Text >{exhibition.ex_end}</Text>
-          {(ClickIndex===index) &&  <div>
-            <Text>{exhibition.ex_info}</Text>
+
+  function ClickList(exhibition){
+    var star=0.0;
+    console.log(exhibition)
+    Axios.post(
+      `http://localhost:5000/api/review/exid`,
+       {
+          'exId': exhibition.ex_id
+       }
+      ).then((response) => {
+          console.log(response.data)
+          const revArr = (response.data).map((review,index) => (  
+            <>
+              <Ul id = {index+1}>
+                <Flex>
+                  <Poster src={review.rev_img} ></Poster>
+                  <div>
+                    <BoldText>{review.rev_title}</BoldText>
+                    <Text height="85px">{review.rev_content} ~</Text>
+                  </div> 
+                </Flex>
+              </Ul>
+              <hr />
+            </>
+            ));
+            for(let i=0;i<response.data.length;i++){
+              star=star+parseFloat(response.data[i].rev_star)
+            }
+            star=star/response.data.length
+
+        console.log(revArr)
+
+        const ex =(<>
+          <Ul id = {0}
+                onClick={()=> ClickList(exhibition)}>
+            <DetailPoster src={exhibition.ex_img} ></DetailPoster>
+            <DetailDiv>
+              <BoldText width="300px">{exhibition.ex_title}</BoldText>
+              <Text width="300px">{exhibition.ex_start}~{exhibition.ex_end}</Text>
+              <Text width="300px">{exhibition.space}</Text>
+              <Text width="300px">{exhibition.ex_info}</Text>
+            </DetailDiv>
             <Review>
               <button id='ReviewButton' onClick={()=>clickReview(exhibition)}>리뷰</button>
-              
-              
               <input id='CheckBox' type="checkbox" size="20px"/> {/* 체크 박스 정보 추가 필요*/}
-            </Review>
-          </div>}
+              <img id="StarImg" src={starImg} alt="Star"></img>
+              <div id="Star">{star}</div>
+            </Review> 
+            
+          </Ul>
+          <hr />
+        </>)
           
-        </ul>
-        <hr />
-      </>));
-    setListContents(newArr)
+        const newArr = [
+          ex,
+          ...revArr
+        ]
+        setListContents(newArr)
+    })
   }
-
-
-     
 
 
   function makeMarkers(array) {
@@ -330,13 +445,17 @@ function Map() {
 
         const ListContent=temp_arr.map((exhibition,index) => (
           <>
-            <ul id = {index}
-                  onClick={()=> ListClick(index,temp_arr)}>
-              <Poster src={exhibition.ex_img} ></Poster> 
-              <BoldText>{exhibition.ex_title}</BoldText>
-              <Text >{exhibition.ex_start} ~</Text>
-              <Text >{exhibition.ex_end}</Text>
-            </ul>
+            <Ul id = {index}
+                  onClick={()=> ClickList(exhibition)}>
+                <Flex>
+                  <Poster src={exhibition.ex_img} ></Poster> 
+                  <div>
+                    <BoldText>{exhibition.ex_title}</BoldText>
+                    <Text size="20px">{exhibition.ex_start} ~</Text>
+                    <Text size="20px">{exhibition.ex_end}</Text>
+                  </div>
+                </Flex>
+              </Ul>
             <hr />
           </>));
           setListContents(ListContent)
