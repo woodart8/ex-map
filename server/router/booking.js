@@ -3,18 +3,28 @@ const router = express.Router()
 
 const exhibition = require('../util/booking/build/contracts/Exhibition.json')
 const Contract = require('../src/Contract')
+const Provider = require('../src/Provider')
 
 const contract = new Contract()
+const provider = new Provider()
+
+const web3 = provider.web3
 
 const booking = async(req) => {
 	const exhibitionADDRESS = req.body.exhibitionADDRESS
 	const sender = req.body.sender
 	const value = req.body.value
 
+	let result = { success: false }
+
 	const exInstance = contract.initContract(exhibition.abi, exhibitionADDRESS)
 	const EventEmitter = exInstance.events.bookingCompleted()
 
-	let result = { success: false }
+	EventEmitter
+	.on('data', (event) => {
+		result = { success: true }
+		console.log(event)
+	})
 
 	const run = async () => {
 		try {
@@ -22,20 +32,15 @@ const booking = async(req) => {
 				.booking()
 				.send({
 					from : sender,
-					value : value,
-					gas : 2000000,
+					value : web3.utils.toWei(String(value), "ether"),
+					gas : 2000000
 				})
+				.then(console.log)
 		} catch (error){
 			result = { success: false, err: error }
 			// console.log(error)
 		}
 	}
-
-	EventEmitter
-	.on('data', (event) => {
-		result = { success: true }
-		// console.log(event)
-	})
 
 	await run()
 
