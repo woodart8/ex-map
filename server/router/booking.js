@@ -17,6 +17,7 @@ const booking = async(req) => {
 
 	let result = { success: false }
 
+	const exInstance = contract.initContract(exhibition.abi, exhibitionADDRESS)
 	const EventEmitter = exInstance.events.bookingCompleted()
 
 	EventEmitter
@@ -25,7 +26,6 @@ const booking = async(req) => {
 		console.log(event)
 	})
 
-	const exInstance = contract.initContract(exhibition.abi, exhibitionADDRESS)
 	const run = async () => {
 		try {
 			await exInstance.methods
