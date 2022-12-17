@@ -20,7 +20,7 @@ const booking = async(req) => {
 
 	let result = { success: false }
 
-	const run = async () => {
+	const booking = async () => {
 		try {
 			await exInstance.methods
 				.booking()
@@ -42,7 +42,7 @@ const booking = async(req) => {
 		console.log(event)
 	})
 
-	await run()
+	await booking()
 
 	return result
 }

@@ -27,7 +27,7 @@ contract Exhibition is Ownable{
 
 	//전시회 정산
 	function refundToOwner() external onlyOwner{
-		require(address(this).balance > 0, "balance of exhibition is 0");
+		require(address(this).balance > 0, "exhibition balance is 0");
 		uint256 refundedBalance = address(this).balance;
 		payable(_owner).transfer(refundedBalance);
 		emit RefundedToOwner(msg.sender, refundedBalance);

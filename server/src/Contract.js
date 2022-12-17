@@ -1,6 +1,5 @@
 const Provider = require('./Provider')
 const provider = new Provider()
-// const { ADDRESS, ABI } = require('./Metadata')
 
 class Contract {
   	constructor() {

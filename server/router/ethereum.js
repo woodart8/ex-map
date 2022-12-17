@@ -15,7 +15,7 @@ const getAccounts = async(req) => {
 		try {
 			const [rows] = await connection.query(query, user_name)
 			connection.release()
-			let balance = 10
+			let balance = 0
 
 			await web3.eth.getBalance(rows[0].user_addr)
 			.then((data) =>{
