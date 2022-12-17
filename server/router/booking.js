@@ -15,11 +15,17 @@ const booking = async(req) => {
 	const sender = req.body.sender
 	const value = req.body.value
 
-	const exInstance = contract.initContract(exhibition.abi, exhibitionADDRESS)
-	const EventEmitter = exInstance.events.bookingCompleted()
-
 	let result = { success: false }
 
+	const EventEmitter = exInstance.events.bookingCompleted()
+
+	EventEmitter
+	.on('data', (event) => {
+		result = { success: true }
+		console.log(event)
+	})
+
+	const exInstance = contract.initContract(exhibition.abi, exhibitionADDRESS)
 	const run = async () => {
 		try {
 			await exInstance.methods
@@ -35,12 +41,6 @@ const booking = async(req) => {
 			// console.log(error)
 		}
 	}
-
-	EventEmitter
-	.on('data', (event) => {
-		result = { success: true }
-		console.log(event)
-	})
 
 	await run()
 
